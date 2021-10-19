@@ -42,8 +42,8 @@ jobs:
 
       - name: Move cache
         run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          rm -rf /tmp/.buildx-cache || true
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache || true
 
       - name: Archive NAIS yaml
         uses: actions/upload-artifact@v1
