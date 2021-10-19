@@ -51,9 +51,12 @@ jobs:
           name: nais-yaml
           path: .nais
 
-  deploy-dev-fss:
-    name: Deploy to dev fss
+  deploy:
+    name: Matrix deploy 
     needs: [ build ]
+    strategy:
+    matrix:
+      cluster: [ dev-fss, dev-sbs, dev-gcp, prod-fss, prod-sbs, prod-gcp]
     runs-on: ubuntu-latest
     steps:
       - name: Fetch NAIS yaml
@@ -63,8 +66,10 @@ jobs:
           path: .nais
 
       - uses: nais/deploy/actions/deploy@v1
+        name: Deploy to ${{ matrix.cluster }} 
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: dev-fss
+          CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml
           PRINT_PAYLOAD: true
+
