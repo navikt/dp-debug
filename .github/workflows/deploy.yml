@@ -55,8 +55,8 @@ jobs:
     name: Matrix deploy 
     needs: [ build ]
     strategy:
-    matrix:
-      cluster: [ dev-fss, dev-sbs, dev-gcp, prod-fss, prod-sbs, prod-gcp]
+      matrix:
+        cluster: [ dev-fss, dev-sbs, dev-gcp, prod-fss, prod-sbs, prod-gcp]
     runs-on: ubuntu-latest
     steps:
       - name: Fetch NAIS yaml
