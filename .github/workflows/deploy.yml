@@ -37,3 +37,26 @@ jobs:
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
+      - name: Archive NAIS yaml
+        uses: actions/upload-artifact@v1
+        with:
+          name: nais-yaml
+          path: .nais
+
+  deploy-dev-fss:
+    name: Deploy to dev fss
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch NAIS yaml
+        uses: actions/download-artifact@v1
+        with:
+          name: nais-yaml
+          path: .nais
+
+      - uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: dev-fss
+          RESOURCE: .nais/nais.yaml
+          PRINT_PAYLOAD: true

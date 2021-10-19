@@ -1,0 +1,26 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: "dp-debug"
+  namespace: "teamdagpenger"
+  labels:
+    "team": "teamdagpenger"
+spec:
+  image: {{image}}
+  replicas:
+    min: 1
+    max: 1
+  prometheus:
+    enabled: false
+  limits:
+    cpu: "100m"
+    memory: "256Mi"
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  accessPolicy:
+    outbound:
+      external:
+        - host: www.vg.no
+      rules:
+        - application: dp-debug
