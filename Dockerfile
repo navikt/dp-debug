@@ -16,6 +16,8 @@ RUN apt-get update && \
         telnet \
         openssl \
         ca-certificates \
+        nodejs \
+        npm \
         && \
 apt-get clean -y && \
 apt-get autoclean -y && \
