@@ -28,4 +28,8 @@ apt-get autoremove -y && \
         rm -f /tmp/kubectl.sha256 && \
         chmod a+x /usr/local/bin/kubectl
 ADD run-tests /run-tests
+ADD --chown=1069:1069 /.npmrc /.npm
+
+USER 1069
+
 ENTRYPOINT ["tail", "-f", "/dev/null"]
