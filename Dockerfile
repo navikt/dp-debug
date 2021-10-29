@@ -16,7 +16,6 @@ RUN apt-get update && \
         telnet \
         openssl \
         ca-certificates \
-        nodejs \
         npm \
         && \
 apt-get clean -y && \
@@ -28,6 +27,8 @@ apt-get autoremove -y && \
         rm -f /tmp/kubectl.sha256 && \
         chmod a+x /usr/local/bin/kubectl
 ADD run-tests /run-tests
+
+RUN npm install -g wscat
 
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
