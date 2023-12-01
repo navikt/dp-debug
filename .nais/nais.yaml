@@ -15,11 +15,10 @@ spec:
   prometheus:
     enabled: false
   limits:
-    cpu: "100m"
-    memory: "256Mi"
+    memory: 128Mi
   requests:
-    cpu: "100m"
-    memory: "256Mi"
+    cpu: 10m
+    memory: 64Mi
   accessPolicy:
     outbound:
       external:
