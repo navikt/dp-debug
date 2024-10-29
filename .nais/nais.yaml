@@ -14,11 +14,12 @@ spec:
     max: 1
   prometheus:
     enabled: false
-  limits:
-    memory: 128Mi
-  requests:
-    cpu: 10m
-    memory: 64Mi
+  resources:
+    limits:
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
   accessPolicy:
     outbound:
       external:
