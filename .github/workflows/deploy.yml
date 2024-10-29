@@ -2,6 +2,9 @@ name: Build and push
 
 on: [ push ]
 
+permissions:
+  id-token: write
+
 jobs:
   build:
     name: Build and Publish Docker image
@@ -34,7 +37,6 @@ jobs:
       - uses: nais/deploy/actions/deploy@v2
         name: Deploy to ${{ matrix.cluster }}
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml
           PRINT_PAYLOAD: true
