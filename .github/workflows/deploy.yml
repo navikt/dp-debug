@@ -30,7 +30,7 @@ jobs:
     needs: [ build ]
     strategy:
       matrix:
-        cluster: [ dev-fss, dev-sbs, dev-gcp, prod-fss, prod-sbs, prod-gcp ]
+        cluster: [ dev-fss, dev-gcp, prod-fss, prod-gcp ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
