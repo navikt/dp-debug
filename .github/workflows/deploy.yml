@@ -41,3 +41,4 @@ jobs:
           CLUSTER: ${{ matrix.cluster }}
           RESOURCE: .nais/nais.yaml
           PRINT_PAYLOAD: true
+          VAR: image=${{ needs.build.outputs.image }}
