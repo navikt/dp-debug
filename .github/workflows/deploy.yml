@@ -1,6 +1,22 @@
 name: Build and push
 
-on: [ push ]
+on:
+  workflow_dispatch:
+    environment:
+      description: Environment to deploy
+      required: true
+      default: dev-gcp
+      type: choice
+      options:
+        - dev-gcp
+        - dev-fss
+        - prod-gcp
+        - prod-fss
+
+    ttl:
+      description: TTL for app (f.ex. 1h, 1d, 1w, 1m)
+      required: true
+      default: 1h
 
 permissions:
   contents: read
@@ -26,19 +42,15 @@ jobs:
       image: ${{ steps.docker-build-push.outputs.image }}
 
   deploy:
-    name: Matrix deploy
     needs: [ build ]
-    strategy:
-      matrix:
-        cluster: [ dev-fss, dev-gcp, prod-fss, prod-gcp ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - uses: nais/deploy/actions/deploy@v2
-        name: Deploy to ${{ matrix.cluster }}
+        name: Deploy to ${{ inputs.environment }}
         env:
-          CLUSTER: ${{ matrix.cluster }}
+          CLUSTER: ${{ inputs.environment }}
           RESOURCE: .nais/nais.yaml
           PRINT_PAYLOAD: true
-          VAR: image=${{ needs.build.outputs.image }}
+          VAR: image=${{ needs.build.outputs.image }}, ttl=${{ inputs.ttl }}
