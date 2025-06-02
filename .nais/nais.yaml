@@ -27,3 +27,11 @@ spec:
         - host: www.vg.no
       rules:
         - application: dp-debug
+  observability:
+    logging:
+      destinations:
+        - id: loki
+        - id: elastic
+    autoInstrumentation:
+      enabled: true
+      runtime: java
